@@ -1,0 +1,14 @@
+[project]
+name = "nudge"
+version = "0.1.0"
+description = "email based AI-agent"
+readme = "README.md"
+requires-python = ">=3.13.5"
+license = { file = "LICENSE" }
+authors = [
+  { name = "heyitscarl", email = "about@heyitscarl.dev" }
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
