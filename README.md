@@ -7,7 +7,17 @@ An email-wrapped AI agent written in python.
 
 ...
 
-## installation
+## self-hosting
+
+### prerequisites
+
+- `asdf-vm`
+
+### installation 
+
+1. Virtual Environment
+
+### usage
 
 ...
 
