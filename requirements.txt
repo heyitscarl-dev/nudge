@@ -3,3 +3,5 @@ pydantic
 python-multipart
 python-dotenv
 openai
+mailgun
+markdown
