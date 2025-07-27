@@ -21,3 +21,4 @@ def get_environment(identifier: str, display: str):
         return value
 
 MAILGUN_WEBHOOK_SIGNING_KEY = get_environment("MAILGUN_WEBHOOK_SIGNING_KEY", "mailgun HTTP webhook signing key")
+OPENAI_API_KEY = get_environment("OPENAI_API_KEY", "openAI API key")

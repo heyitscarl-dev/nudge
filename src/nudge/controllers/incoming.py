@@ -10,6 +10,7 @@ from typing import Annotated
 from fastapi import APIRouter, BackgroundTasks, Form, HTTPException
 
 from nudge.model.email import IncomingEmail
+from nudge.services import openai as openai_service
 from nudge.utils import env
 
 
@@ -20,5 +21,5 @@ async def incoming(email: Annotated[IncomingEmail, Form()], background_tasks: Ba
     if not email.verify(env.MAILGUN_WEBHOOK_SIGNING_KEY):
         raise HTTPException(403, detail = "invalid signature")
 
-    background_tasks.add_task(lambda: print("ignoring queued email."))
+    background_tasks.add_task(lambda: print(openai_service.respond_to_email(email).output_text))
     return { "detail": "queued" }

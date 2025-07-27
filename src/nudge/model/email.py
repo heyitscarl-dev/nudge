@@ -11,6 +11,7 @@ class IncomingEmail(BaseModel):
     
     subject: str 
     stripped: str   = Field(alias="stripped-text")
+    body: str       = Field(alias="body-plain")
 
     # verification
     token: str
