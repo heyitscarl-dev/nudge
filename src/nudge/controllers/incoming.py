@@ -12,6 +12,7 @@ from typing import Annotated
 from fastapi import APIRouter, BackgroundTasks, Form, HTTPException
 
 from nudge.model.email import IncomingEmail
+from nudge.view import loader
 from nudge.services import openai as openai_service
 from nudge.services import mailgun as mailgun_service
 from nudge.utils import env
@@ -22,7 +23,7 @@ router = APIRouter()
 def process(email: IncomingEmail):
     text = openai_service.get_response(email).output_text
     html = markdown.markdown(text)
-    mailgun_service.reply(email, f"<html><body>{html}</body></html>")
+    mailgun_service.reply(email, loader.render_email(html, email))
 
 @router.post("/webhook/incoming", status_code=202)
 async def incoming(email: Annotated[IncomingEmail, Form()], background_tasks: BackgroundTasks):

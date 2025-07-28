@@ -1,22 +1,27 @@
+from typing import Optional
 from pydantic import BaseModel, Field
 import hmac, hashlib
 
 class IncomingEmail(BaseModel):
     """
-    The data model for an incoming email webhook via Mailgun.
+    All data sent by mailgun regarding incoming emails.
     """
 
-    sender: str     = Field(alias="From")
-    recipient: str  = Field(alias="To")
-    
+    recipient: str
+    sender: str 
+    from_: str                  = Field(alias="from")
     subject: str 
-    stripped: str   = Field(alias="stripped-text")
-    body: str       = Field(alias="body-plain")
-
-    # verification
-    token: str
-    timestamp: str 
+    body_plain: str             = Field(alias="body-plain")
+    stripped_text: str          = Field(alias="stripped-text")
+    body_html: str              = Field(alias="body-html")
+    stripped_html: str          = Field(alias="stripped-html")
+    timestamp: int
+    token: str 
     signature: str
+    message_headers: str        = Field(alias="message-headers")
+
+    # todo: add attachment-N fields where N <= attachment_count
+    #       potentially dynamic list added after initial parsing
 
     def verify(self, signing_key: str) -> bool:
         """
@@ -37,3 +42,18 @@ class IncomingEmail(BaseModel):
         msg = f"{self.timestamp}{self.token}".encode()
         expected = hmac.new(key=signing_key.encode(), msg=msg, digestmod=hashlib.sha256).hexdigest()
         return hmac.compare_digest(expected, self.signature)
+
+class OutgoingEmail(BaseModel):
+    """
+    All data that mailgun accepts for sending an email.
+    """
+
+    from_: str                      = Field(serialization_alias="from")
+    to: str
+    cc: list[str] | None            = Field(default=None)
+    bcc: list[str] | None           = Field(default=None)
+    subject: str 
+    text: str | None                = Field(default=None)
+    html: str | None                = Field(default=None)
+    attachment: list[str] | None    = Field(default=None)
+    inline: list[str] | None        = Field(default=None)
