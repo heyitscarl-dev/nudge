@@ -3,7 +3,7 @@ An email-wrapped AI agent written in python.
 
 ## introduction
 
-Nudge is an AI-agent at its code. However, instead of any fancy website, I chose to use email
+Nudge is an AI-agent at its core. However, instead of any fancy website, I chose to use email
 as the only form of UI.
 
 ## tooling
