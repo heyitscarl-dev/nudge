@@ -4,8 +4,6 @@ receiving incoming emails from the a mailgun
 route, and queuing them to be processed.
 """
 
-import markdown
-
 from typing import Annotated
 from fastapi import APIRouter, BackgroundTasks, Form, HTTPException
 

@@ -56,9 +56,9 @@ class Message(BaseModel):
             html=self.body.html
         )
 
-    def reply_with(self, body: MessageBody):
+    def reply_with(self, body: MessageBody, sender: str | None = None):
         return Message(
-            sender=self.recipient,
+            sender=sender or self.recipient,
             recipient=self.sender,
             subject=f"Re: {self.subject}",
             body=body

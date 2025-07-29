@@ -11,6 +11,6 @@ def send(message: Message):
     res = client.messages.create(data=data, domain=env.MAILGUN_DOMAIN)
     return res
 
-def reply_with(message: Message, body: MessageBody):
-    reply = message.reply_with(body)
+def reply_with(message: Message, body: MessageBody, sender: str | None = None):
+    reply = message.reply_with(body, sender=sender)
     send(reply)
