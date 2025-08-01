@@ -1,4 +1,3 @@
-from typing import Optional
 from pydantic import BaseModel, Field
 import hmac, hashlib
 

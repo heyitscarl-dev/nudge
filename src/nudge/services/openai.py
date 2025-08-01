@@ -1,8 +1,8 @@
 from openai import OpenAI
 from nudge.model.message import Message
-from nudge.utils import env
+from nudge.utils import environment
 
-client = OpenAI(api_key=env.OPENAI_API_KEY)
+client = OpenAI(api_key=environment.get_environment("OPENAI_API_KEY"))
 
 def get_response(email: Message):
     response = client.responses.create(

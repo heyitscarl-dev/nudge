@@ -1,6 +1,6 @@
 from datetime import UTC, datetime
 from jinja2 import Environment, FileSystemLoader
-from nudge.model.email import IncomingEmail, OutgoingEmail
+from nudge.model.email import IncomingEmail
 
 jenv = Environment(
     loader=FileSystemLoader("res/templates")
